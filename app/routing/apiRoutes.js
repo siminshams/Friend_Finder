@@ -8,13 +8,26 @@ module.exports = function(app){
 
 
     app.post("/api/friends", function(req, res){
-        tableData.push(req.body);
-        res.json(true);
+         console.log(tableData);
+        let user = req.body;
+        let maxDifference = 100;
+        let bestMatch;
+        let userScores = user.scores;
+        for (let i =0; i<tableData.length;i++){
+            let match = tableData[i];
+           // console.log(match);
+            let scores = match.scores;
+            let difference = 0;
+            for(let j; j <scores.length;j++){
+           difference += Math.abs(parsInt(scores[j])- parseInt(userScores[j]));
+            }
+           if(difference < maxDifference){
+                bestMatch = match;
+                maxDifference = difference;
+           }
+        } 
+        tableData.push(req.body);       
+       res.json(bestMatch);
+       
     });
-
-    // app.post("/api/clear", function(req, res) {
-    //     // Empty out the arrays of data
-    //     tableData.length = [];
-    //     res.json(true);
-    //   });
 }

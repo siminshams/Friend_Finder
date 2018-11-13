@@ -18,22 +18,22 @@
     <hr>
     <h2>About You</h2>
 
-    <form>
+    <form id ="newMatch">
       <div class="form-group">
         <label for="formGroupExampleInput">Name(Required)</label>
-        <input type="text" class="form-control" id="name formGroupExampleInput" required>
+        <input type="text" class="form-control" id="name" required>
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput2">Link to Photo Image (Required)</label>
-        <input type="text" class="form-control" id="image formGroupExampleInput2 " required>
+        <input type="text" class="form-control" id="image" required>
         <hr>
       </div>
-    </form>
+   
     <div>
       <h3>Question1</h3>
       <p>Your mind is always buzzing with unexplored ideas and plans</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q1">
+        <select class="chosen-select" id="q1" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -43,12 +43,12 @@
         </select>
       </div>
     </div>
-
+  
     <div>
       <h3>Question2</h3>
       <p>You get irritated easily.</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q2" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -63,7 +63,7 @@
       <h3>Question3</h3>
       <p>You feel comfortable around people.</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q3">
+        <select class="chosen-select" id="q3" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -78,7 +78,7 @@
       <h3>Question4</h3>
       <p>You are often troubled by negative thoughts.</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q4">
+        <select class="chosen-select" id="q4" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -94,7 +94,7 @@
       <h3>Question5</h3>
       <p>You make plans and stick to them.</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q5">
+        <select class="chosen-select" id="q5" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -109,7 +109,7 @@
       <h3>Question6</h3>
       <p>You often feel anxious about what could go wrong.</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q6">
+        <select class="chosen-select" id="q6" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -124,7 +124,7 @@
       <h3>Question7</h3>
       <p>Your mind is always buzzing with unexplored ideas and plans</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q7">
+        <select class="chosen-select" id="q7" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -139,7 +139,7 @@
       <h3>Question8</h3>
       <p>Your mind is always buzzing with unexplored ideas and plans</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q8">
+        <select class="chosen-select" id="q8" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -154,7 +154,7 @@
       <h3>Question9</h3>
       <p>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q9">
+        <select class="chosen-select" id="q9" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -169,7 +169,7 @@
       <h3>Question10</h3>
       <p>It is often difficult for you to relate to other people’s feelings</p>
       <div class="dropdown">
-        <select class="chosen-select" id="q10">
+        <select class="chosen-select" id="q10" required>
           <option value=""></option>
           <option value="1">1 (Strongly Disagree)</option>
           <option value="2">2</option>
@@ -180,15 +180,16 @@
       </div>
     </div><br><br>
     <div>
-      <button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Submit</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">Submit</button>
       <hr>
     </div>
+  </form>
     <footer class="footer">
       <div class="container">
         <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/siminshams">GitHub Repo</a></p>
       </div>
     </footer>
-
+  
     <div class="modal fade" id ="results-modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -208,7 +209,7 @@
   </div>
 
   <script type="text/javascript">
-    $("#submit").on("click", function (event) {
+    $("#newMatch").on("submit", function (event) {
       event.preventDefault();
 
       var findFriend = {
@@ -225,17 +226,22 @@
           $("#q8").val(),
           $("#q9").val(),
           $("#q10").val()
-        ]
+        ]        
       };
+      var arr=[];
+      for(var i = 0;i <findFriend.scores.length;i++){
+     // console.log(findFriend.scores[i]);
+}
+
       $.post("/api/friends", findFriend, function (data) {
-  
+        console.log(data);
         $("#namematch").text(data.name);
         $("#imagematch").attr("src",data.photo);
         $("#results-modal").modal("show");
       });
     });
   
-  </script>3
+  </script>
 </body>
 
 </html>
